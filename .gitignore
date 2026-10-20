@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Database files (generated; schema.sql is the source of truth)
+backend/data/
+*.db
+*.db-wal
+*.db-shm
+
+# Environment variables
+.env
+.env.*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
