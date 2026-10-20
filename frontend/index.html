@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="eng">
+     <head>
+        <link rel="stylesheet" href="/mainPage.css" type="text/css">
+     </head>
+
+     <body>
+        <div id="mainbg">
+            <!-- Form For Submission -->
+            <form id="survey" method="POST" action="/create" onsubmit="validatePatient()">
+                <div class ="infoInput">
+                    <div>First Name</div>
+                    <input type="text" id="firstNameTxt" class="infoBar" name="firstname" placeholder="First Name">
+                </div>
+
+                <div class ="infoInput">
+                    <div>Last Name</div>
+                    <input type="text" id="lastNameTxt" class="infoBar" name="lastname" placeholder="Last Name">
+                </div>
+
+                <div class ="infoInput">
+                    <div>Gender</div>
+                    <input type="text" id="genderTxt" class="infoBar" name="gender" placeholder="Gender">
+                </div>
+
+                <div class ="infoInput">
+                    <div>Age</div>
+                    <input type="number" id="patAge" class="infoBar" name="age" placeholder="00">
+                </div>
+
+                <div class="infoInput">
+                    <div>Rate the ease and convenience of scheduling appointments with our healthcare facility.</div>
+
+                    <div class ="infoScale">
+                        <input type="radio" id="1a" value="1" name="appointmentSched">
+                        <label for="1a" style="font-weight: normal;">1</label>
+                        <input type="radio" id="2a" value="2" name="appointmentSched">
+                        <label for="2a" style="font-weight: normal;">2</label>
+                        <input type="radio" id="3a" value="3" name="appointmentSched">
+                        <label for="3a" style="font-weight: normal;">3</label>
+                        <input type="radio" id="4a" value="4" name="appointmentSched">
+                        <label for="4a" style="font-weight: normal;">4</label>
+                        <input type="radio" id="5a" value="5" name="appointmentSched">
+                        <label for="5a" style="font-weight: normal;">5</label>
+                        <input type="radio" id="6a" value="6" name="appointmentSched">
+                        <label for="6a" style="font-weight: normal;">6</label>
+                        <input type="radio" id="7a" value="7" name="appointmentSched">
+                        <label for="7a" style="font-weight: normal;">7</label>
+                        <input type="radio" id="8a" value="8" name="appointmentSched">
+                        <label for="8a" style="font-weight: normal;">8</label>
+                        <input type="radio" id="9a" value="9" name="appointmentSched">
+                        <label for="9a" style="font-weight: normal;">9</label>
+                        <input type="radio" id="10a" value="10" name="appointmentSched">
+                        <label for="10a" style="font-weight: normal;">10</label>
+                    </div>
+                </div>
+
+                <div class="infoInput">
+                    <div>How satisfied were you with the waiting time before being seen by a healthcare provider?</div>
+                    <div class ="infoScale">
+                        <input type="radio" id="1b" value="1" name="waitingTime">
+                        <label for="1b" style="font-weight: normal;">1</label>
+                        <input type="radio" id="2b" value="2" name="waitingTime">
+                        <label for="2b" style="font-weight: normal;">2</label>
+                        <input type="radio" id="3b" value="3" name="waitingTime">
+                        <label for="3b" style="font-weight: normal;">3</label>
+                        <input type="radio" id="4b" value="4" name="waitingTime">
+                        <label for="4b" style="font-weight: normal;">4</label>
+                        <input type="radio" id="5b" value="5" name="waitingTime">
+                        <label for="5b" style="font-weight: normal;">5</label>
+                        <input type="radio" id="6b" value="6" name="waitingTime">
+                        <label for="6b" style="font-weight: normal;">6</label>
+                        <input type="radio" id="7b" value="7" name="waitingTime">
+                        <label for="7b" style="font-weight: normal;">7</label>
+                        <input type="radio" id="8b" value="8" name="waitingTime">
+                        <label for="8b" style="font-weight: normal;">8</label>
+                        <input type="radio" id="9b" value="9" name="waitingTime">
+                        <label for="9b" style="font-weight: normal;">9</label>
+                        <input type="radio" id="10b" value="10" name="waitingTime">
+                        <label for="10b" style="font-weight: normal;">10</label>
+                    </div>
+                </div>
+
+                <div class="infoInput">
+                    <div>Rate the care received during your visit, including interactions with doctors, nurses, and other staff members.</div>
+                    <div class ="infoScale">
+                        <input type="radio" id="1c" value="1" name="quality">
+                        <label for="1c" style="font-weight: normal;">1</label>
+                        <input type="radio" id="2c" value="2" name="quality">
+                        <label for="2c" style="font-weight: normal;">2</label>
+                        <input type="radio" id="3c" value="3" name="quality">
+                        <label for="3c" style="font-weight: normal;">3</label>
+                        <input type="radio" id="4c" value="4" name="quality">
+                        <label for="4c" style="font-weight: normal;">4</label>
+                        <input type="radio" id="5c" value="5" name="quality">
+                        <label for="5c" style="font-weight: normal;">5</label>
+                        <input type="radio" id="6c" value="6" name="quality">
+                        <label for="6c" style="font-weight: normal;">6</label>
+                        <input type="radio" id="7c" value="7" name="quality">
+                        <label for="7c" style="font-weight: normal;">7</label>
+                        <input type="radio" id="8c" value="8" name="quality">
+                        <label for="8c" style="font-weight: normal;">8</label>
+                        <input type="radio" id="9c" value="9" name="quality">
+                        <label for="9c" style="font-weight: normal;">9</label>
+                        <input type="radio" id="10c" value="10" name="quality">
+                        <label for="10c" style="font-weight: normal;">10</label>
+                    </div>
+                </div>
+                
+                <!-- Dropdown for Purpose -->
+                    <div id="purposeSelect">
+                        <div style="font-weight: bold; padding-bottom: 5px;">
+                            Purpose of Visit
+                        </div>
+                        <div>
+                            <input type="checkbox" id="emergency" value=" Emergency" name="purpose">
+                            <label for="emergency">Emergency</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="genCons" value=" General Consultation" name="purpose">
+                            <label for="genCons">General Consultation</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="surgCons" value=" Surgery Consultation" name="purpose">
+                            <label for="surgCons">Surgery Consultation</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="minorSurg" value=" Minor Surgery" name="purpose">
+                            <label for="minorSurg">Minor Surgery</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="others" value=" Other" name="purpose">
+                            <label for="others">Other</label>
+                        </div>
+                    </div>
+
+                <button type="submit" id="submit">Submit Survey</button>
+             </form>
+
+            <div class="mainTitle">
+                Patients
+            </div>
+            <!-- Table -->
+                <table id="patients">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Scheduling Rating</th>
+                        <th>Waiting Time Satisfaction</th>
+                        <th>Appointment Quality</th>
+                        <th>Purpose</th>
+                        <th></th> <!-- Blank for Delete Button -->
+                    </tr>
+
+                    <!-- Loop Through the Patients in SQL To Fill Table -->
+                    <% patients.forEach(patient => { %>
+                        <tr>
+                            <td><%= patient.firstname %></td>
+                            <td><%= patient.lastname %></td>
+                            <td><%= patient.appointmentSched %></td>
+                            <td><%= patient.waitingTime %></td>
+                            <td><%= patient.quality %></td>
+                            <td><%= patient.purpose %></td>
+                            <td><a href="/delete/<%= patient.firstname %>"><button id="delete">Delete</button></a></button></td>
+                        </tr>
+                    <% }); %>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!-- JavaScript Code -->
+ <script>
+
+    // When Submit is Pressed
+    function validatePatient(){
+        // If Input is Missing or Incorrect, Inform User
+        let alertText = "";
+        // Show a New Error Per Issue/Returned False
+        if(ageCheck()){
+            alertText += "Patients Must Be 18 Or Older\n";
+        }
+        if(purposeCheck()){
+            alertText += "You Must Select at Least One Purpose For the Visit\n";
+        }
+
+        // Show a Basic Alert for All Incomplete Information
+        if(alertText != ""){
+            alert(String(alertText));
+            return false;
+        }
+
+        // Returns True if Alert Text Doesn't Flag
+        return true;
+    }
+
+    function ageCheck(){
+        const age = document.getElementById("patAge").value;
+
+        // Validate that Age > 18
+        if(age < 18){
+            return true;
+        }
+        // Else Statement is Unnecessary as This Will Trigger On It's Own
+        return false;
+    }
+
+    function purposeCheck(){
+
+        // Check if At Least One Choice is Selected
+        if(!document.getElementById("emergency").checked && !document.getElementById("genCons").checked && !document.getElementById("surgCons").checked && !document.getElementById("minorSurg").checked && !document.getElementById("others").checked){
+            return true
+        }
+
+        return false;
+    }
+
+ </script>
