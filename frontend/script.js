@@ -3,7 +3,7 @@ const path = require('path');
 var app = express();
 // Require Sequel for Database
 const sequelize = require("./db");
-var patientRouter = require('./routes/patients');
+var productRouter = require('./routes/product');
 
 var createError = require('http-errors');
 
@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "/pages")));
 
 // Use Router Files For Post/Get
-app.use('/', patientRouter);
+app.use('/', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,8 +47,7 @@ app.use(function(err, req, res, next) {
 
 // Defining Setup
 async function setup(){
-    const Patients = require('./models/Patient');
-    const patient1 = await Patients.create({firstname: "Michael", lastname:"Kelly", gender:"Spiral", age: 47, appointmentSched: 10, waitingTime: 9, quality: 1, purpose: "Major Reconstruction"});
+    // Create Two Products
 }
 
 // Creates a Database if There Is None

@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Faber4729/CPTS_428-Group-Project/issues"
   },
-  "homepage": "https://github.com/Faber4729/CPTS_428-Group-Project#readme"
+  "homepage": "https://github.com/Faber4729/CPTS_428-Group-Project#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
 }

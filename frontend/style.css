@@ -78,7 +78,6 @@ p {
 }
 
 /* Dropdown */
-
 #purposeSelect{
     width: 90%;
     display: block;
@@ -88,12 +87,12 @@ p {
     padding-top: 15px;
 }
 
-/* Submit button */
-#submit{
+/* Select button */
+#select{
     width: 15%;
     align-self: flex-start;
     color: white; 
-    background-color: rgb(103, 0, 222); 
+    background-color: rgb(44, 54, 205); 
     border-width: 0;
     border-radius: 5px;
     padding: 5px 0px 5px;
@@ -105,18 +104,18 @@ p {
 }
 
 /* Delete Button */
-#delete{
+/*#delete{
     align-self: center;
     width: 80%;
     color: white; 
-    background-color: rgb(103, 0, 222); 
+    background-color: rgb(44, 54, 205); 
     border-width: 0;
     border-radius: 5px;
     padding: 5px 0px 5px;
     cursor: pointer;
     font-size: 14px;
     height: 30px;
-}
+} */
 
 .infoBar{
     width: 90%;
