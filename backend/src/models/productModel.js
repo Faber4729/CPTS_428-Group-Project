@@ -39,4 +39,15 @@ function getProduct(pid) {
     }
 }
 
-export default { createProduct, getProducts, getProduct }; 
+function deleteProduct(pid) {
+    const db = openDb();
+    try {
+        return db
+        .prepare("DELETE FROM products where product_id = ?")
+        .run(pid);
+    } finally {
+        db.close();
+    }
+}
+
+export default { createProduct, getProducts, getProduct, deleteProduct, }; 

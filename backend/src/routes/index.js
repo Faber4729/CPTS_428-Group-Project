@@ -32,6 +32,7 @@ res.sendFile(frontendIndex);
 // For creating products
 router.post("/admin", (req, res) => {
   const title = req.body.title?.trim();
+  const description = req.body.description?.trim();
   const price = parseFloat(req.body.price);
   const quantity = parseInt(req.body.quantity, 10);
 
@@ -39,13 +40,24 @@ router.post("/admin", (req, res) => {
     return res.status(400).send("A title, a valid price, and a valid quantity are required.");
   }
 
-  productModel.createProduct({
+  productModel.createProduct(
     title,
-    price,
+    description,
     quantity,
-    description: req.body.description?.trim(),
-  });
+    price,
+  );
   res.redirect("/admin");
+});
+
+// For deleting products
+router.get("/admin/delete/:pid", (req, res) => {
+  try {
+    productModel.deleteProduct(req.params.pid);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete product.");
+  }
 });
 
 export default router;

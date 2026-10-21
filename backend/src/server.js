@@ -7,6 +7,7 @@ import reviewsRouter from "./routes/reviews.js";
 const app = express();
 const here = path.dirname(fileURLToPath(import.meta.url));
 
+app.use(express.urlencoded({ extended: true })); // For Form Submission ?
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(here, "../../frontend/views")); // for ejs templates
@@ -17,7 +18,6 @@ app.use("/api/reviews", reviewsRouter);
 
 // frontend files
 app.use(express.static(path.resolve(here, "../../frontend")));
-app.use(express.urlencoded({ extended: true }));
 
 // TODO: [Ingrid] configure .env file
 const port = process.env.PORT || 3000; 
