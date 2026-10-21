@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { fileURLToPath } from "node:url";
 import productModel from "../models/productModel.js";
+import reviewModel from "../models/reviewModel.js";
 
 const router = Router();
 const frontendIndex = fileURLToPath(
@@ -57,6 +58,17 @@ router.get("/admin/delete/:pid", (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to delete product.");
+  }
+});
+
+// For deleting reviews
+router.get("/admin/delete/review/:rid", (req, res) => {
+  try {
+    reviewModel.deleteReview(req.params.rid);
+    res.redirect("/admin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete review.");
   }
 });
 

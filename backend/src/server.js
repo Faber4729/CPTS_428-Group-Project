@@ -14,7 +14,7 @@ app.set("views", path.join(here, "../../frontend/views")); // for ejs templates
 
 // page and API routes
 app.use("/", indexRouter);
-app.use("/api/reviews", reviewsRouter);
+app.use("/review", reviewsRouter);
 
 // frontend files
 app.use(express.static(path.resolve(here, "../../frontend")));
