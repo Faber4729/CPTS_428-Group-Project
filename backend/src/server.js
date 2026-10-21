@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import indexRouter from "./routes/index.js";
 import reviewsRouter from "./routes/reviews.js";
+import chatRouter from "./routes/chat.js";
 
 const app = express();
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -15,6 +16,7 @@ app.set("views", path.join(here, "../../frontend/views")); // for ejs templates
 // page and API routes
 app.use("/", indexRouter);
 app.use("/review", reviewsRouter);
+app.use("/chat", chatRouter);
 
 // frontend files
 app.use(express.static(path.resolve(here, "../../frontend")));
