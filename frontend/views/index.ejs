@@ -21,7 +21,7 @@
                         <td><%= item.price %></td>
                         <td><%= item.quantity %></td>
                         <td><%= item.description %></td>
-                        <td><a href="/review/<%=item.product_id%>"><button id="select">Select</button></a></button></td>
+                        <td><a href="/review/<%=item.product_id%>"><button id="select">Select</button></a></td>
                     </tr>
                     <% }) %>
                     </tbody>
@@ -29,6 +29,95 @@
         <% } else { %>
             <p> No Products Found. </p>
         <% } %>
+
+        <!-- Chat Bot Chat/Button Toggle -->
+         <button id="chat_open" type="button">Open Chat</button>
+
+         <div id="chat_window" hidden>
+            <div id="chat_header">
+                <div>Product Assistant</div>
+                <button id="chat_close" type="button">X</button>
+            </div>
+            <div id="chat_text">
+                <p class="bot_msg">Hey there! Ask me anything about our products.</p>
+            </div>
+            <form id="chat_form">
+                <input id="chat_bar" type="text" placeholder="Send a Message" required>
+                <button type="submit">Send</button>
+            </form>
+         </div>
     </body>
 
  </html>
+
+ <!-- JavaScript -->
+<script>
+    const chatOpen = document.getElementById("chat_open"); //toggle
+    const chatClose = document.getElementById("chat_close");
+    const chatWindow = document.getElementById("chat_window"); //widget
+    const input = document.getElementById("chat_bar");
+    const form = document.getElementById("chat_form");
+    const chatText = document.getElementById("chat_text"); //mesages
+
+    chatOpen.addEventListener('click', () => {
+        chatWindow.hidden = false;
+        // Hide Button As Well
+        chatOpen.hidden = true;
+        input.focus();
+    });
+
+    chatClose.addEventListener('click', () => {
+        chatWindow.hidden = true;
+        chatOpen.hidden = false;
+    });
+
+    function addMessage(text, sender) {
+        const message = document.createElement('p');
+        // Creates Class For Format
+        message.className = sender + '_message';
+        message.textContent = text;
+        chatText.appendChild(message);
+        chatText.scrollTop = messages.scrollHeight;
+        return message;
+    }
+
+    form.addEventListener('submit', async (event) => {
+
+        event.preventDefault();
+
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMessage(text, 'user');
+        input.value = '';
+        input.disabled = true;
+
+        const reply = addMessage('Thinking...', 'bot');
+
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: text })
+            });
+
+            if (!response.ok) {
+                throw new Error('Chat request failed');
+            }
+
+            const data = await response.json();
+            
+            reply.textContent = data.reply;
+
+        } catch (error) {
+            reply.textContent =
+                'Sorry, I could not respond. Please try again.';
+        } finally {
+            input.disabled = false;
+            input.focus();
+        }
+    });
+
+</script>

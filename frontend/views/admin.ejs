@@ -15,7 +15,7 @@
         <input name="title" placeholder="Title" required>
         <input name="description" placeholder="Description">
         <input name="quantity" type="number" min="0" placeholder="Quantity" required>
-        <input name="price" type="number" step="0.01" min="0" placeholder="Price" required>
+        <input name="price" type="number" min="0" placeholder="Price" required>
         <button type="submit">Add</button>
       </form>
 
@@ -31,7 +31,7 @@
                        <td><%= item.price %></td>
                        <td><%= item.quantity %></td>
                        <td><%= item.description %></td>
-                       <td><a href="/admin/delete/<%= item.product_id%>"><button id="delete">Delete</button></a></button></td>
+                       <td><a href="/admin/delete/<%= item.product_id%>"><button id="delete">Delete</button></a></td>
                    </tr>
                    <% }) %>
                    </tbody>
@@ -44,13 +44,14 @@
     <% if (reviews.length > 0) { %>
         <table>
             <table>
-                <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
+                <thead><tr><th>Title</th><th>Review ID</th><th>Reviewer</th><th>Review Content</th></tr></thead>
             <tbody>
                     <% reviews.forEach(item => { %>
                         <tr>
                         <td><%= item.review_id%></td>
+                        <td><%= item.review_name%></td>
                         <td><%= item.review_body %></td>
-                        <td><a href="/admin/delete/review/<%= item.review_id%>"><button id="delete">Delete</button></a></button></td>
+                        <td><a href="/admin/delete/review/<%= item.review_id%>"><button id="delete">Delete</button></a></td>
                     </tr>
                     <% }) %>
             </tbody>
