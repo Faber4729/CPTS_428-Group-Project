@@ -8,6 +8,8 @@ const app = express();
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
+app.set("view engine", "ejs");
+app.set("views", path.join(here, "../../frontend/views")); // for ejs templates
 
 // page and API routes
 app.use("/", indexRouter);
