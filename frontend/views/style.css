@@ -1,0 +1,145 @@
+/* pasted all this from 489, will fix later, just for default stuff */
+#mainbg{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 8px gray;
+    width: 95%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+
+/*Survey */
+#survey{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Submit Information */
+.maininfo{
+    display: flex;
+    padding: 15px;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+/* Text */
+p {
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    text-align: left;
+}
+
+.mainTitle{
+    color:rgb(0, 144, 84);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: 20px;
+    font-size: x-large;
+}
+
+.infoInput{
+    width: 90%;
+    display: block;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    align-self: center;
+    padding-top: 15px;
+}
+
+.infoInput div{
+    padding-bottom: 5px;
+}
+
+.infoScale{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
+/* User Input Boxes */
+.input {
+    font-size: 12px;
+    border-color: rgb(160, 169, 178);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    /* inner padding -- top, left/right, bottom */
+    padding: 5px 10px 5px;
+    margin: 10px 15px 5px;
+}
+
+/* Dropdown */
+#purposeSelect{
+    width: 90%;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    align-self: center;
+    padding-top: 15px;
+}
+
+/* Submit button */
+#submit{
+    width: 15%;
+    align-self: flex-start;
+    color: white; 
+    background-color: rgb(103, 0, 222); 
+    border-width: 0;
+    border-radius: 5px;
+    padding: 5px 0px 5px;
+    margin: 10px 5% 0px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+/* Delete Button */
+#delete{
+    align-self: center;
+    width: 80%;
+    color: white; 
+    background-color: rgb(103, 0, 222); 
+    border-width: 0;
+    border-radius: 5px;
+    padding: 5px 0px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 30px;
+}
+
+.infoBar{
+    width: 90%;
+    padding: 5px;
+    border-color: lightgray;
+    border-radius: 6px;
+    border-width: 1px;
+}
+
+/* Table */
+#patients{
+    padding-top: 15px;
+    width: 90%;
+    align-self: center;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* For Borders Inside Table */
+td, th{
+    border-bottom: 1px solid  rgb(152, 152, 152);
+    text-align: left;
+    padding: 8px 5px 8px;
+}
