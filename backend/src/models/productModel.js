@@ -17,15 +17,26 @@ function createProduct(title, description, quantity, price){
    }
 }
 
-function getProduct(productId) {
+function getProducts() {
     const db = openDb();
     try {
         return db
-        .prepare("SELECT * FROM products WHERE associated_product_id = ?") // We're just hoping no two have the same id (they shouldn't)
-        .all(productId);
+        .prepare("SELECT * FROM products") // Get ALL of them
+        .all();
     } finally {
         db.close();
     }
 }
 
-export default { createProduct, getProduct }; 
+function getProduct(pid) {
+    const db = openDb();
+    try {
+        return db
+        .prepare("SELECT * FROM products where product_id = ?")
+        .get(pid) ?? null; // Either finds product or has null
+    } finally {
+        db.close();
+    }
+}
+
+export default { createProduct, getProducts, getProduct }; 

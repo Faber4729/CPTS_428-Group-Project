@@ -17,6 +17,7 @@ app.use("/api/reviews", reviewsRouter);
 
 // frontend files
 app.use(express.static(path.resolve(here, "../../frontend")));
+app.use(express.urlencoded({ extended: true }));
 
 // TODO: [Ingrid] configure .env file
 const port = process.env.PORT || 3000; 
