@@ -116,6 +116,19 @@ p {
     height: 30px;
 }
 
+#select{
+    align-self: center;
+    width: 60%;
+    color: white; 
+    background-color: rgb(103, 0, 222); 
+    border-width: 0;
+    border-radius: 5px;
+    padding: 5px 0px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 30px;
+}
+
 .infoBar{
     width: 90%;
     padding: 5px;

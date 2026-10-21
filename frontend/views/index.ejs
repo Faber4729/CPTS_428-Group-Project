@@ -13,7 +13,7 @@
         <!-- Get All Products to Display -->
         <% if (products.length > 0) { %>
             <table>
-                <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th></tr></thead>
+                <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
             <tbody>
                     <% products.forEach(item => { %>
                         <tr>
@@ -21,6 +21,7 @@
                         <td><%= item.price %></td>
                         <td><%= item.quantity %></td>
                         <td><%= item.description %></td>
+                        <td><a href="/review/<%=item.product_id%>"><button id="select">Select</button></a></button></td>
                     </tr>
                     <% }) %>
                     </tbody>

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS products(
 CREATE TABLE IF NOT EXISTS reviews(
     review_id INTEGER PRIMARY KEY AUTOINCREMENT,
     associated_product_id INTEGER NOT NULL,
+    review_name TEXT NOT NULL,
     review_body TEXT,
     FOREIGN KEY (associated_product_id)
         REFERENCES products (product_id)

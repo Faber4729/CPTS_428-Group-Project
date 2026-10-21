@@ -22,10 +22,11 @@ router.get("/", (_req, res) => {
 router.get("/admin", (_req, res) => {
   try {
     const products = productModel.getProducts();
-    res.render("admin", {products});
+    const reviews = reviewModel.getAllReviews();
+    res.render("admin", {products, reviews});
 } catch(err) {
     console.error(err);
-    res.status(500).json({error: "failed to fetch products"});
+    res.status(500).json({error: "failed to fetch products or reviews"});
 }
 res.sendFile(frontendIndex);
 });

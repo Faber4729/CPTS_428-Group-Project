@@ -19,13 +19,15 @@ router.get("/:pid", (req, res) => {
 // For creating reviews
 router.post("/create/:pid", (req, res) => {
   const productID = req.params.pid;
+  const reviewName = req.body.reviewName?.trim();
   const reviewBody = req.body.reviewBody?.trim();
 
-  reviewModel.createProduct(
+  reviewModel.postReview(
     productID,
+    reviewName,
     reviewBody,
   );
-  res.redirect("/review/:pid");
+  res.redirect("/review/" + productID);
 });
 
 export default router; 

@@ -39,6 +39,25 @@
        <% } else { %>
            <p> No Products Found. </p>
        <% } %>
+
+       <h1>Reviews</h1>
+    <% if (reviews.length > 0) { %>
+        <table>
+            <table>
+                <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
+            <tbody>
+                    <% reviews.forEach(item => { %>
+                        <tr>
+                        <td><%= item.review_id%></td>
+                        <td><%= item.review_body %></td>
+                        <td><a href="/admin/delete/review/<%= item.review_id%>"><button id="delete">Delete</button></a></button></td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>>
+    <% } else { %>
+        <p> No Reviews Found. </p>
+    <% } %>
    </body>
 
 </html>
