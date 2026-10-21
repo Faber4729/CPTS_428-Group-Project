@@ -1,0 +1,9 @@
+<h1>Reviews</h1>
+<% if (reviews.length > 0) { %>
+    <ul>
+            <% reviews.forEach(item => { %>
+        <li><%= item.review_body %></li>
+            <% }) %>
+    </ul>
+<% } %>
+<!-- just testing the db models and putting in a little example for how the ejs templates work -->
