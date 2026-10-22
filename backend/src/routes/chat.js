@@ -74,32 +74,30 @@ async function readStream(stream) {
   return out;
 }
 
-// For Posting Messages
-router.post("/", async (req, res) => {
-  try {
-    const { message, previousInteractionId } = req.body;
-    // Get Model All Database Information
-    const products = productModel.getProducts();
-    const reviews = reviewModel.getAllReviews();
-    //const adjustPrice = agentModel.discountProduct();
+export async function handleChat(message, previousInteractionId) {
+  const toolCalls = []; // record of what the model tried to do and the result of it 
 
-    const productInfo = products.map((product) => ({
-      product_id: product.product_id,
-      title: product.title,
-      price: product.price,
-      quantity: product.quantity,
-      description: product.description,
-    }));
+  // Get Model All Database Information
+  const products = productModel.getProducts();
+  const reviews = reviewModel.getAllReviews();
 
-    const reviewInfo = reviews.map((review) => ({
-      associated_product_id: review.associated_product_id,
-      review_name: review.review_name,
-      review_body: review.review_body,
-    }));
+  const productInfo = products.map((product) => ({
+    product_id: product.product_id,
+    title: product.title,
+    price: product.price,
+    quantity: product.quantity,
+    description: product.description,
+  }));
 
-    const params = {
-      model: "gemini-3.5-flash-lite",
-      system_instruction: `
+  const reviewInfo = reviews.map((review) => ({
+    associated_product_id: review.associated_product_id,
+    review_name: review.review_name,
+    review_body: review.review_body,
+  }));
+
+  const params = {
+    model: "gemini-3.5-flash-lite",
+    system_instruction: `
                 You are a shopping assistant.
                 Answer questions using only the provided product data.
                 Do not invent prices, quantities, or product details.
@@ -118,43 +116,53 @@ router.post("/", async (req, res) => {
                 Review catalog:
                 ${JSON.stringify(reviewInfo)}
             `,
+    input: message,
+    tools: TOOLS,
+    stream: true,
+  };
+  
+  let result = await readStream(
+    await ai.interactions.create({
+      ...params, // ... - spread syntax, copies model/sys prompt/tools etc
       input: message,
-      tools: TOOLS,
-      stream: true,
-    };
+      ...(previousInteractionId && {
+        previous_interaction_id: previousInteractionId,
+      }),
+    }),
+  );
 
-    let result = await readStream(
+  if (result.status === "requires_action" && result.call) {
+    const call = result.call;
+    const toolResult = runTool(call);
+    toolCalls.push({ name: call.name, args: call.args, result: toolResult });
+    result = await readStream(
       await ai.interactions.create({
-        ...params, // ... - spread syntax, copies model/sys prompt/tools etc
-        input: message,
-        ...(previousInteractionId && {
-          previous_interaction_id: previousInteractionId,
-        }),
+        ...params,
+        previous_interaction_id: result.id,
+        input: [
+          {
+            type: "function_result",
+            name: call.name,
+            call_id: call.id,
+            result: {
+              content: [{ type: "text", text: JSON.stringify(toolResult) }],
+            },
+          },
+        ],
       }),
     );
+  }
 
-    if (result.status === "requires_action" && result.call) {
-      const call = result.call;
-      const toolResult = runTool(call);
-      result = await readStream(
-        await ai.interactions.create({
-          ...params,
-          previous_interaction_id: result.id,
-          input: [
-            {
-              type: "function_result",
-              name: call.name,
-              call_id: call.id,
-              result: {
-                content: [{ type: "text", text: JSON.stringify(toolResult) }],
-              },
-            },
-          ],
-        }),
-      );
-    }
+  return { reply: result.text, interactionId: result.id, toolCalls };
+}
 
-    res.json({ reply: result.text, interactionId: result.id });
+// For Posting Messages
+router.post("/", async (req, res) => {
+  try {
+    const { message, previousInteractionId } = req.body;
+    const { reply, interactionId } = await handleChat(message, previousInteractionId);
+    res.json({ reply, interactionId });   
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to send message.");
