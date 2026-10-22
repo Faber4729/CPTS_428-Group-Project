@@ -4,9 +4,6 @@ import productModel from "../models/productModel.js";
 import reviewModel from "../models/reviewModel.js";
 
 const router = Router();
-const frontendIndex = fileURLToPath(
-  new URL("../../../frontend/index.html", import.meta.url),
-);
 
 router.get("/", (_req, res) => {
     try {
@@ -16,7 +13,6 @@ router.get("/", (_req, res) => {
       console.error(err);
       res.status(500).json({error: "failed to fetch products"});
   }
-  res.sendFile(frontendIndex);
 });
 
 router.get("/admin", (_req, res) => {
@@ -28,7 +24,6 @@ router.get("/admin", (_req, res) => {
     console.error(err);
     res.status(500).json({error: "failed to fetch products or reviews"});
 }
-res.sendFile(frontendIndex);
 });
 
 // For creating products
