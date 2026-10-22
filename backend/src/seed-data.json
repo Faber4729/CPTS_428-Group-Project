@@ -1,0 +1,90 @@
+{
+  "products": [
+    {
+      "product_id": 1,
+      "title": "Wireless Earbuds",
+      "description": "Bluetooth earbuds with a charging case and 24 hours of total battery life.",
+      "quantity": 40,
+      "price": 80.00
+    },
+    {
+      "product_id": 2,
+      "title": "Insulated Water Bottle",
+      "description": "750 ml stainless steel bottle that keeps drinks cold for 24 hours.",
+      "quantity": 120,
+      "price": 25.00
+    },
+    {
+      "product_id": 3,
+      "title": "Mechanical Keyboard",
+      "description": "Compact 75% keyboard with hot-swappable switches and USB-C.",
+      "quantity": 15,
+      "price": 100.00
+    },
+    {
+      "product_id": 4,
+      "title": "Laptop Backpack",
+      "description": "Water-resistant 20 L backpack with a padded compartment for 15-inch laptops.",
+      "quantity": 60,
+      "price": 60.00
+    },
+    {
+      "product_id": 5,
+      "title": "Desk Lamp",
+      "description": "LED desk lamp with three color temperatures and a USB charging port.",
+      "quantity": 0,
+      "price": 40.00
+    },
+    {
+      "product_id": 6,
+      "title": "Notebook Set",
+      "description": "Pack of three dotted-grid notebooks, 120 pages each.",
+      "quantity": 200,
+      "price": 20.00
+    }
+  ],
+  "reviews": [
+    {
+      "review_id": 1,
+      "associated_product_id": 1,
+      "review_name": "Dana",
+      "review_body": "Great sound for the price and the battery easily lasts a full workday."
+    },
+    {
+      "review_id": 2,
+      "associated_product_id": 1,
+      "review_name": "Marcus",
+      "review_body": "Comfortable fit, but the case feels a little flimsy."
+    },
+    {
+      "review_id": 3,
+      "associated_product_id": 2,
+      "review_name": "Priya",
+      "review_body": "Kept my water cold all day on a hike. No leaks."
+    },
+    {
+      "review_id": 4,
+      "associated_product_id": 3,
+      "review_name": "Sam",
+      "review_body": "Typing feel is excellent. Wish the cable were longer."
+    },
+    {
+      "review_id": 5,
+      "associated_product_id": 3,
+      "review_name": "Lena",
+      "review_body": "Easy to swap switches. Great first mechanical keyboard."
+    },
+    {
+      "review_id": 6,
+      "associated_product_id": 4,
+      "review_name": "Tom",
+      "review_body": "Fits my laptop and a lot of books. Straps are comfortable."
+    },
+    {
+      "review_id": 7,
+      "associated_product_id": 5,
+      "review_name": "Aisha",
+      "review_body": "Bright and adjustable, but it keeps selling out."
+    }
+  ]
+}
