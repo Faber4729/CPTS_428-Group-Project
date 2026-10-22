@@ -9,8 +9,10 @@ export const DB_PATH = path.resolve(here, '../../data/app.db');
 export const SCHEMA_PATH = path.join(here, 'schema.sql');
 
 export function openDb() {
-    fs.mkdirSync(path.dirname(DB_PATH), {recursive: true});
-    const db = new Database(DB_PATH);
+    let dbPath = path.resolve(process.env.DB_PATH || DB_PATH); // configurable db path for harness 
+    fs.mkdirSync(path.dirname(dbPath), {recursive: true});
+
+    const db = new Database(dbPath);
     db.pragma('foreign_keys = ON');
     db.pragma('journal_mode = WAL');
     return db;
