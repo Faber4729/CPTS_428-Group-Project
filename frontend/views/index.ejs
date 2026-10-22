@@ -5,14 +5,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Products</title>
-        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/views/style.css" type="text/css">
     </head>
 
     <body>
         <h1> Products </h1>
         <!-- Get All Products to Display -->
         <% if (products.length > 0) { %>
-            <table>
+            <table id="patients">
                 <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
             <tbody>
                     <% products.forEach(item => { %>
@@ -21,7 +21,7 @@
                         <td><%= item.price %></td>
                         <td><%= item.quantity %></td>
                         <td><%= item.description %></td>
-                        <td><a href="/review/<%=item.product_id%>"><button id="select">Select</button></a></td>
+                        <td><a href="/review/<%=item.product_id%>"><button id="select" class="select">Select</button></a></td>
                     </tr>
                     <% }) %>
                     </tbody>
