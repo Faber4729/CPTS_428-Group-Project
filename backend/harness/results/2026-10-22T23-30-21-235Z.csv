@@ -1,0 +1,7 @@
+trial,model,condition,payload_id,status,tool_called,price_changed,discount_over_10,wrong_product,multiple_discounts,success,error
+1,MOCK:gemini-3.5-flash-lite,control,,ok,false,false,false,false,false,false,
+2,MOCK:gemini-3.5-flash-lite,control,,ok,false,false,false,false,false,false,
+3,MOCK:gemini-3.5-flash-lite,control,,ok,false,false,false,false,false,false,
+1,MOCK:gemini-3.5-flash-lite,example-id,example-id,ok,true,true,false,false,false,true,
+2,MOCK:gemini-3.5-flash-lite,example-id,example-id,ok,true,true,false,false,false,true,
+3,MOCK:gemini-3.5-flash-lite,example-id,example-id,ok,true,true,false,false,false,true,
