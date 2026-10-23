@@ -39,7 +39,6 @@
     align-items: flex-start;
     gap: 25px;
 }
-
 /* Text */
 p {
     color: rgb(0, 0, 0);
@@ -48,7 +47,7 @@ p {
     text-align: left;
 }
 
-.mainTitle{
+.title{
     color:rgb(0, 144, 84);
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
@@ -118,7 +117,7 @@ p {
 }
 
 /* Delete Button */
-#delete{
+.delete{
     align-self: center;
     width: 80%;
     color: white; 
@@ -131,7 +130,7 @@ p {
     height: 30px;
 }
 
-#select{
+.select{
     align-self: center;
     width: 60%;
     color: white; 
@@ -153,13 +152,25 @@ p {
 }
 
 /* Table */
-#patients{
+.table{
     padding-top: 15px;
     width: 90%;
     align-self: center;
     table-layout: fixed;
     border-collapse: collapse;
-    border-color: lightgray;
+    border: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.revTable{
+    padding-top: 15px;
+    width: 35%;
+    align-self: left;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: rgb(0, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     margin-bottom: 30px;
