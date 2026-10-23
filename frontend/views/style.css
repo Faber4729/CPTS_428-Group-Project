@@ -62,6 +62,23 @@
     font-size: 24px;
 }
 
+#chat_form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+}
+
+#chat_close{
+    color:rgb(30, 30, 30);
+    background-color: transparent;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: right;
+    font-weight: bold;
+    font-size: x-large;
+    cursor: pointer;
+}
+
 /* Admin Stuff */
 #adminGrid{
     display: grid;
@@ -114,29 +131,8 @@ p {
     text-align: left;
 }
 
-.title{
-    color:rgb(0, 144, 84);
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    width: 100%;
-    font-weight: bold;
-    padding-bottom: 20px;
-    font-size: x-large;
-}
-
 /* Buttons */
-.delete{
-    align-self: center;
-    color: white; 
-    background-color: rgb(103, 0, 222); 
-    border-width: 0;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.select{
+.regular{
     align-self: center;
     color: white; 
     background-color: rgb(103, 0, 222); 
@@ -167,6 +163,7 @@ p {
     background-color: rgb(103, 0, 222); 
     border-width: 0;
     border-radius: 5px;
+    font-weight: bold;
     padding: 5px;
     cursor: pointer;
     font-size: 20px;
@@ -194,6 +191,7 @@ p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     margin-bottom: 30px;
+    margin-left: 20px;
 }
 
 /* For Borders Inside Table */
