@@ -11,6 +11,21 @@
     margin-left: 20px;
 }
 
+#chat_window{
+    position: fixed;
+    bottom: 25px;
+    right: 50px;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 8px gray;
+    width: 30%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    padding: 15px;
+}
+
 /*Survey */
 #survey{
     display: flex;

@@ -8,10 +8,10 @@
     "db:init": "node src/db/scripts/db-init.js",
     "db:reset": "node src/db/scripts/db-reset.js",
     "db:seed": "node src/db/scripts/db-seed.js",
-    "harness": "node --env-file-if-exists=../.env harness/run.js",
+    "harness": "node --env-file-if-exists=./.env harness/run.js",
     "test:harness": "node harness/run.js --mock --trials 1",
-    "harness:control": "node --env-file-if-exists=../.env harness/run.js --condition control",
-    "start": "node --env-file=../.env src/server.js"
+    "harness:control": "node --env-file-if-exists=./.env harness/run.js --condition control",
+    "start": "node --env-file=./.env src/server.js"
   },
   "keywords": [],
   "author": "",
