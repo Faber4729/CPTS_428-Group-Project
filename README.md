@@ -2,8 +2,8 @@
 Group Project for CPTS 428 Fall 2026.
 
 # Agent Trap
-Ingrid Llorente\n
-Jackson Pickett\n
+Ingrid Llorente, 
+Jackson Pickett, 
 JD Faber
 
 ## Harness Commands
