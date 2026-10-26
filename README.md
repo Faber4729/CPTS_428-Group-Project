@@ -2,11 +2,13 @@
 Group Project for CPTS 428 Fall 2026.
 
 # Agent Trap
-Ingrid Llorente
-Jackson Pickett
+Ingrid Llorente\n
+Jackson Pickett\n
 JD Faber
 
 ## Harness Commands
+To run the harness, you will have to add your own .env file in the /backend folder with an api key set as GOOGLE_API_KEY = [Your Key Here]
+
 - From `backend/`:
     - run `npm install` for dependencies
     - run `npm install @google/genai` for the API keys
