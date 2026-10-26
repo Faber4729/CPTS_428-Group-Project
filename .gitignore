@@ -6,6 +6,8 @@ backend/data/
 *.db
 *.db-wal
 *.db-shm
+backend/data/harness.db
+backend/harness/results/
 
 # Environment variables
 .env

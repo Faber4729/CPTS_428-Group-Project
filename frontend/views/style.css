@@ -1,5 +1,5 @@
-/* pasted all this from 489, will fix later, just for default stuff */
-#mainbg{
+/* BG Stuff (Drop Shadow) */
+.roundedbg{
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -9,20 +9,110 @@
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: 20px;
+    padding: 20px;
 }
 
-/*Survey */
-#survey{
+.revbg{
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 8px gray;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    padding: 20px;
 }
 
-/* Main Submit Information */
-.maininfo{
-    display: flex;
+/* Chat Window Stuff */
+#chat_window{
+    position: fixed;
+    bottom: 25px;
+    right: 50px;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 8px gray;
+    width: 30%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
     padding: 15px;
-    align-items: flex-start;
-    gap: 25px;
+}
+
+#chat_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat_open {
+    align-self: center;
+    position: fixed;
+    bottom: 25px;
+    right: 50px;
+    color: white; 
+    background-color: rgb(103, 0, 222); 
+    border-width: 0;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#chat_form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+}
+
+#chat_close{
+    color:rgb(30, 30, 30);
+    background-color: transparent;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: right;
+    font-weight: bold;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+/* Admin Stuff */
+#adminGrid{
+    display: grid;
+    width: 95%;
+    gap: 20px;
+    grid-template-columns: repeat(5, 200px);
+    justify-items: start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+/* Review Stuff */
+.reviews {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+  .infoBar{
+    width: 90%;
+    display: block;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    align-self: center;
+    padding: 15px;
+}
+
+  #reviewGrid{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 300px);
+    justify-items: start;
+    align-items: center;
 }
 
 /* Text */
@@ -33,108 +123,50 @@ p {
     text-align: left;
 }
 
-.title{
-    color:rgb(0, 144, 84);
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    width: 100%;
-    font-weight: bold;
-    padding-bottom: 20px;
-    font-size: x-large;
-}
-
-.infoInput{
-    width: 90%;
-    display: block;
+.bold {
+    color: rgb(0, 0, 0);
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Buttons */
+.regular{
     align-self: center;
-    padding-top: 15px;
-}
-
-.infoInput div{
-    padding-bottom: 5px;
-}
-
-.infoScale{
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 15px;
-}
-
-/* User Input Boxes */
-.input {
-    font-size: 12px;
-    border-color: rgb(160, 169, 178);
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    /* inner padding -- top, left/right, bottom */
-    padding: 5px 10px 5px;
-    margin: 10px 15px 5px;
-}
-
-/* Dropdown */
-#purposeSelect{
-    width: 90%;
-    display: block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    align-self: center;
-    padding-top: 15px;
-}
-
-/* Submit button */
-#submit{
-    width: 15%;
-    align-self: flex-start;
     color: white; 
     background-color: rgb(103, 0, 222); 
     border-width: 0;
     border-radius: 5px;
-    padding: 5px 0px 5px;
-    margin: 10px 5% 0px;
+    padding: 5px;
     cursor: pointer;
     font-size: 14px;
-    height: 30px;
+}
+
+.add{
+    align-self: center;
+    color: white; 
+    background-color: rgb(103, 0, 222); 
+    border-width: 0;
+    border-radius: 5px;
+    padding: 5px 15px 5px;
+    margin: 5%;
+    cursor: pointer;
+    font-size: 16px;
+    height: 80%;
     margin-bottom: 15px;
 }
 
-/* Delete Button */
-.delete{
+#home{
     align-self: center;
-    width: 80%;
     color: white; 
     background-color: rgb(103, 0, 222); 
     border-width: 0;
     border-radius: 5px;
-    padding: 5px 0px 5px;
-    cursor: pointer;
-    font-size: 14px;
-    height: 30px;
-}
-
-.select{
-    align-self: center;
-    width: 60%;
-    color: white; 
-    background-color: rgb(103, 0, 222); 
-    border-width: 0;
-    border-radius: 5px;
-    padding: 5px 0px 5px;
-    cursor: pointer;
-    font-size: 14px;
-    height: 30px;
-}
-
-.infoBar{
-    width: 90%;
+    font-weight: bold;
     padding: 5px;
-    border-color: lightgray;
-    border-radius: 6px;
-    border-width: 1px;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 /* Table */
@@ -152,7 +184,6 @@ p {
 
 .revTable{
     padding-top: 15px;
-    width: 35%;
     align-self: left;
     table-layout: fixed;
     border-collapse: collapse;
@@ -160,6 +191,7 @@ p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     margin-bottom: 30px;
+    margin-left: 20px;
 }
 
 /* For Borders Inside Table */

@@ -31,14 +31,22 @@ export function seedDb(db) {
         }
     })();
 }
-const db = openDb();
 
-try {
-    seedDb(db);
-    console.log("Data seeded");
-} catch (err) {
-    console.error(err);
-    process.exitCode = 1;
-} finally {
-    db.close();
+export function main() {
+    const db = openDb();
+
+    try {
+        seedDb(db);
+        console.log("Data seeded");
+    } catch (err) {
+        console.error(err);
+        process.exitCode = 1;
+    } finally {
+        db.close();
+    }
+}
+
+const thisFile = fileURLToPath(import.meta.url);
+if (process.argv[1] && path.resolve(process.argv[1]) === thisFile) {
+    main();
 }

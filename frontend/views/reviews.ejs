@@ -7,40 +7,41 @@
        <link rel="stylesheet" href="/views/style.css">
    </head>
    
+   <a href="/"><button id="home">&lt;</button></a></button>
+
    <h1>Product</h1>
-    <table class="revTable">
-        <tbody>
-            <tr><th>Title</th></tr>
-                <tr><td><%= product.title %></td> </tr>
-            <tr><th>Description</th></tr>
-                <tr><td><%= product.description %></td></tr>
-        </tbody>
-</table>
+
+   <div class="revbg">
+        <table class="revTable">
+            <tbody>
+                <tr><th>Title</th></tr>
+                    <tr><td><%= product.title %></td> </tr>
+                <tr><th>Description</th></tr>
+                    <tr><td><%= product.description %></td></tr>
+            </tbody>
+        </table>
+    </div>
 
    <h1>Reviews</h1>
-   <% if (reviews.length > 0) { %>
-       <table class="table">
-               <thead><tr><th>Review Number</th><th>Reviewer</th><th>Product Review</th></tr></thead>
-           <tbody>
-                   <% reviews.forEach(item => { %>
-                       <tr>
-                       <td><%= item.review_id%></td>
-                       <td><%= item.review_name%></td>
-                       <td><%= item.review_body%></td>
-                   </tr>
-                   <% }) %>
-           </tbody>
-       </table>>
-   <% } else { %>
+    <% if (reviews.length > 0) { %>
+        <div class="reviews">
+                <% reviews.forEach(item => { %>
+                <div class="revbg">
+                    <p class="bold"><%= item.review_name%></p>
+                    <p><%= item.review_body%></p>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
        <p> No Reviews Found. </p>
    <% } %>
 
    <h1> Add Review </h1>
     <form action="/review/create/<%= product.product_id%>" method="POST">
-        <input name="reviewName" placeholder="Reviewer Name" required>
-        <input name="reviewBody" placeholder="Review Text">
-        <button type="submit">Add</button>
-      </form>
-
-   <a href="/"><button id="select">Home</button></a></button>
+        <div id="reviewGrid">
+            <input name="reviewName" placeholder="Reviewer Name" class="infoBar" required>
+            <input name="reviewBody" placeholder="Review Text" class="infoBar">
+            <button type="submit" class="add">Add Review</button>
+        </div>
+    </form>
 </html>

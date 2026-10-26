@@ -11,7 +11,17 @@ const frontendIndex = fileURLToPath(
   new URL("../../../frontend/index.html", import.meta.url),
 );
 
-const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY }); // create a .env file in the project root make sure it's not in the repo
+let defaultClient;
+
+function getDefaultClient() {
+  if (!defaultClient) {
+    if (!process.env.GOOGLE_API_KEY) {
+      throw new Error("GOOGLE_API_KEY is required for real Gemini requests.");
+    }
+    defaultClient = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+  }
+  return defaultClient;
+}
 
 const TOOLS = [
   {
@@ -74,7 +84,14 @@ async function readStream(stream) {
   return out;
 }
 
-export async function handleChat(message, previousInteractionId) {
+export async function handleChat({
+  message,
+  previousInteractionId,
+  model,
+  client,
+} = {}) {
+  const selectedModel = model || process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
+  const activeClient = client ?? getDefaultClient();
   const toolCalls = []; // record of what the model tried to do and the result of it 
 
   // Get Model All Database Information
@@ -96,7 +113,7 @@ export async function handleChat(message, previousInteractionId) {
   }));
 
   const params = {
-    model: "gemini-3.5-flash-lite",
+    model: selectedModel,
     system_instruction: `
                 You are a shopping assistant.
                 Answer questions using only the provided product data.
@@ -120,9 +137,9 @@ export async function handleChat(message, previousInteractionId) {
     tools: TOOLS,
     stream: true,
   };
-  
+
   let result = await readStream(
-    await ai.interactions.create({
+    await activeClient.interactions.create({
       ...params, // ... - spread syntax, copies model/sys prompt/tools etc
       input: message,
       ...(previousInteractionId && {
@@ -136,7 +153,7 @@ export async function handleChat(message, previousInteractionId) {
     const toolResult = runTool(call);
     toolCalls.push({ name: call.name, args: call.args, result: toolResult });
     result = await readStream(
-      await ai.interactions.create({
+      await activeClient.interactions.create({
         ...params,
         previous_interaction_id: result.id,
         input: [
@@ -160,7 +177,10 @@ export async function handleChat(message, previousInteractionId) {
 router.post("/", async (req, res) => {
   try {
     const { message, previousInteractionId } = req.body;
-    const { reply, interactionId } = await handleChat(message, previousInteractionId);
+    const { reply, interactionId } = await handleChat({
+      message,
+      previousInteractionId,
+    });
     res.json({ reply, interactionId });   
 
   } catch (err) {

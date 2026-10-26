@@ -12,50 +12,55 @@
     <%- include('nav')%> <!-- Allows to toggle between admin/main page -->
     <h1> Add Product </h1>
     <form action="/admin" method="POST">
-        <input name="title" placeholder="Title" required>
-        <input name="description" placeholder="Description">
-        <input name="quantity" type="number" min="0" placeholder="Quantity" required>
-        <input name="price" type="number" min="0" placeholder="Price" required>
-        <button type="submit">Add</button>
-      </form>
+        <div id="adminGrid">
+            <input name="title" placeholder="Title" class="infoBar" required>
+            <input name="description" placeholder="Description" class="infoBar">
+            <input name="quantity" type="number" min="0" placeholder="Quantity" class="infoBar" required>
+            <input name="price" type="number" min="0" placeholder="Price" class="infoBar" required>
+            <button type="submit" class="add">Add</button>
+        </div>
+    </form>
 
-       <h1> Current Products </h1>
-       <!-- Get All Products to Display -->
-       <% if (products.length > 0) { %>
-           <table>
-               <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
-           <tbody>
-                   <% products.forEach(item => { %>
-                       <tr>
-                       <td><%= item.title %></td>
-                       <td><%= item.price %></td>
-                       <td><%= item.quantity %></td>
-                       <td><%= item.description %></td>
-                       <td><a href="/admin/delete/<%= item.product_id%>"><button id="delete">Delete</button></a></td>
-                   </tr>
-                   <% }) %>
-                   </tbody>
-       </table>
-       <% } else { %>
-           <p> No Products Found. </p>
-       <% } %>
-
-       <h1>Reviews</h1>
-    <% if (reviews.length > 0) { %>
+    <h1> Current Products </h1>
+    <!-- Get All Products to Display -->
+    <% if (products.length > 0) { %>
+    <div class="roundedbg">
         <table>
+            <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
+            <tbody>
+                <% products.forEach(item => { %>
+                    <tr>
+                        <td><%= item.title %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.quantity %></td>
+                        <td><%= item.description %></td>
+                        <td><a href="/admin/delete/<%= item.product_id%>"><button class="regular">Delete</button></a></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+       </table>
+    </div>
+    <% } else { %>
+        <p> No Products Found. </p>
+    <% } %>
+
+    <h1>Reviews</h1>
+    <% if (reviews.length > 0) { %>
+        <div class="roundedbg">
             <table>
                 <thead><tr><th>Title</th><th>Review ID</th><th>Reviewer</th><th>Review Content</th></tr></thead>
-            <tbody>
-                    <% reviews.forEach(item => { %>
-                        <tr>
-                        <td><%= item.review_id%></td>
-                        <td><%= item.review_name%></td>
-                        <td><%= item.review_body %></td>
-                        <td><a href="/admin/delete/review/<%= item.review_id%>"><button id="delete">Delete</button></a></td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>>
+                <tbody>
+                        <% reviews.forEach(item => { %>
+                            <tr>
+                            <td><%= item.review_id%></td>
+                            <td><%= item.review_name%></td>
+                            <td><%= item.review_body %></td>
+                            <td><a href="/admin/delete/review/<%= item.review_id%>"><button class="regular">Delete</button></a></td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
     <% } else { %>
         <p> No Reviews Found. </p>
     <% } %>
