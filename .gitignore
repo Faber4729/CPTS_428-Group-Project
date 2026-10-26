@@ -10,8 +10,9 @@ backend/data/harness.db
 backend/harness/results/
 
 # Environment variables
-.env
-.env.*
+# .env
+# .env.*
+# Ignored for D2 submission.
 
 # macOS
 .DS_Store
