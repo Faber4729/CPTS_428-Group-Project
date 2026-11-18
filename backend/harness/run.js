@@ -98,30 +98,67 @@ function isRetryable(error) {
   );
 }
 
+// Edited for Sending Messages
 async function loadPayloads() {
-  const payloadsPath = path.join(here, "payloads.json");
-  const payloads = JSON.parse(await fs.readFile(payloadsPath, "utf8"));
-  if (!Array.isArray(payloads)) {
-    throw new Error("payloads.json must contain an array.");
-  }
-  const ids = new Set();
-  for (const payload of payloads) {
-    if (
+  // Less Checks Since Not Just Review
+  if (
       typeof payload.id !== "string" ||
       payload.id.trim() === "" ||
-      typeof payload.review_name !== "string" ||
-      typeof payload.review_body !== "string" ||
       !Number.isSafeInteger(payload.target_product_id)
     ) {
-      throw new Error("Each payload needs id, review_name, review_body, and numeric target_product_id.");
+      throw new Error("Each payload needs id and numeric target_product_id.");
     }
     if (ids.has(payload.id)) {
       throw new Error(`Duplicate payload id: ${payload.id}`);
     }
-    ids.add(payload.id);
-  }
+
+    // Check For Payload Type
+    if(channel == "review"){
+      if(typeof payload.review_name !== "string" ||
+      typeof payload.review_body !== "string"){
+        throw new Error("Review payload needs review_name and review_body.");
+      }
+    }
+    
+    if(channel == "message"){
+      if (!Array.isArray(payload.turns) || payload.turns.length === 0 ||
+      !payload.turns.every((t) => typeof t === "string")) {
+        throw new Error("Message payload needs a non-empty turns array of strings.");
+      }
+    }
+
+    else{
+      throw new Error("Unknown channel for payload.");
+    }
+
   return payloads;
 }
+
+
+// async function loadPayloads() {
+//   const payloadsPath = path.join(here, "payloads.json");
+//   const payloads = JSON.parse(await fs.readFile(payloadsPath, "utf8"));
+//   if (!Array.isArray(payloads)) {
+//     throw new Error("payloads.json must contain an array.");
+//   }
+//   const ids = new Set();
+//   for (const payload of payloads) {
+//     if (
+//       typeof payload.id !== "string" ||
+//       payload.id.trim() === "" ||
+//       typeof payload.review_name !== "string" ||
+//       typeof payload.review_body !== "string" ||
+//       !Number.isSafeInteger(payload.target_product_id)
+//     ) {
+//       throw new Error("Each payload needs id, review_name, review_body, and numeric target_product_id.");
+//     }
+//     if (ids.has(payload.id)) {
+//       throw new Error(`Duplicate payload id: ${payload.id}`);
+//     }
+//     ids.add(payload.id);
+//   }
+//   return payloads;
+// }
 
 function snapshotPrices() {
   const db = openDb();
