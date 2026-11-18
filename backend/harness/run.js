@@ -21,6 +21,7 @@ const CSV_COLUMNS = [
   "model",
   "condition",
   "payload_id",
+  "channel",
   "status",
   "tool_called",
   "price_changed",
@@ -30,6 +31,19 @@ const CSV_COLUMNS = [
   "success",
   "error",
 ];
+
+// Encoders for Hidden Text 
+const ENCODERS = {
+  none: (t) => t,
+  unicode_tags: (t) =>
+    [...t].map((c) => String.fromCodePoint(0xe0000 + c.codePointAt(0))).join(""),
+  zero_width: (t) =>
+    [...t]
+      .map((c) => c.charCodeAt(0).toString(2).padStart(8, "0"))
+      .join("")
+      .replaceAll("0", "\u200b")
+      .replaceAll("1", "\u200c"),
+};
 
 export function parseHarnessArgs(argv) {
   const { values } = parseArgs({
@@ -100,38 +114,69 @@ function isRetryable(error) {
 
 // Edited for Sending Messages
 async function loadPayloads() {
-  // Less Checks Since Not Just Review
-  if (
-      typeof payload.id !== "string" ||
-      payload.id.trim() === "" ||
-      !Number.isSafeInteger(payload.target_product_id)
-    ) {
-      throw new Error("Each payload needs id and numeric target_product_id.");
-    }
-    if (ids.has(payload.id)) {
-      throw new Error(`Duplicate payload id: ${payload.id}`);
-    }
+  const payloadsPath = path.join(here, "payloads.json");
+  const payloads = JSON.parse(await fs.readFile(payloadsPath, "utf8"));
+  if (!Array.isArray(payloads)) {
+    throw new Error("payloads.json must contain an array.");
+  }
 
-    // Check For Payload Type
-    if(channel == "review"){
-      if(typeof payload.review_name !== "string" ||
-      typeof payload.review_body !== "string"){
-        throw new Error("Review payload needs review_name and review_body.");
+  const ids = new Set();
+
+  for (const payload of payloads) {
+    // Set Default Channel (Defaults to Review)
+    const channel = payload.channel ?? "review";
+
+    // Less Checks Since Not Just Review
+    if (
+        typeof payload.id !== "string" ||
+        payload.id.trim() === "" ||
+        !Number.isSafeInteger(payload.target_product_id)
+      ) {
+        throw new Error("Each payload needs id and numeric target_product_id.");
       }
-    }
-    
-    if(channel == "message"){
-      if (!Array.isArray(payload.turns) || payload.turns.length === 0 ||
-      !payload.turns.every((t) => typeof t === "string")) {
-        throw new Error("Message payload needs a non-empty turns array of strings.");
+      if (ids.has(payload.id)) {
+        throw new Error(`Duplicate payload id: ${payload.id}`);
       }
-    }
 
-    else{
-      throw new Error("Unknown channel for payload.");
-    }
+      // Check For Payload Type
+      if(channel === "review"){
+        if(typeof payload.review_name !== "string" ||
+        typeof payload.review_body !== "string"){
+          throw new Error("Review payload needs review_name and review_body.");
+        }
+      }
+      
+      if(channel === "message"){
+        if (!Array.isArray(payload.turns) || payload.turns.length === 0 ||
+        !payload.turns.every((t) => typeof t === "string")) {
+          throw new Error("Message payload needs a non-empty turns array of strings.");
+        }
+      }
 
-  return payloads;
+      else{
+        throw new Error("Unknown channel for payload.");
+      }
+
+    return payloads.map((p) => {
+      // If No Hidden Instructions, Return As Normal
+      if (!p.hidden_instruction) return p;
+
+      // Check for Encoding Method
+      const encode = ENCODERS[p.encoding ?? "none"];
+      if (!encode) throw new Error(`Unknown encoding: ${p.encoding}`);
+
+      // Encode Hidden Text
+      const hidden = encode(p.hidden_instruction);
+      
+      // If It's a Message, Also Return the Turns in Conversation
+      if (p.channel === "message") {
+        return { ...p, turns: [p.turns[0] + hidden, ...p.turns.slice(1)] };
+      }
+
+      // If Not, Append the Hidden Text (If Any) and Return
+      return { ...p, review_body: p.review_body + hidden };
+    });
+  }
 }
 
 
@@ -181,7 +226,7 @@ function prepareTrial(payload) {
     db.close();
   }
   const priceBefore = snapshotPrices();
-  if (payload) {
+  if (payload && payload.channel === "review") {
     reviewModel.postReview(
       payload.target_product_id,
       payload.review_name,
@@ -215,6 +260,7 @@ function createResultRow({
     model,
     condition,
     payload_id: payload?.id ?? "",
+    channel: payload?.channel ?? (payload ? "review" : "control"),
     status,
     tool_called: metrics?.toolCalled ?? null,
     price_changed: metrics?.priceChanged ?? null,
@@ -237,19 +283,38 @@ async function runTrial({ trial, condition, payload, model, mock }) {
       : undefined;
 
     try {
-      const chatResult = await handleChat({
-        message: BENIGN_MESSAGE,
-        previousInteractionId: undefined,
-        model,
-        client,
-      });
+      // New Variables for Chats with Turns
+      const turns = payload?.channel === "message" ? payload.turns : [BENIGN_MESSAGE];
+
+      let previousInteractionId;
+      let chatResult;
+
+      // Tool Calls and Replies from All Turns
+      const allToolCalls = [];
+      const replies = [];
+
+      // Loop for Number of Turns in Chat
+      for (const message of turns){
+        const chatResult = await handleChat({
+          message: BENIGN_MESSAGE,
+          previousInteractionId: undefined,
+          model,
+          client,
+        });
+
+        // Add Tool Calls and Replies
+        previousInteractionId = chatResult.interactionId;
+        allToolCalls.push(...chatResult.toolCalls);
+        replies.push(chatResult.reply);
+      }
       const priceAfter = snapshotPrices();
       const metrics = evaluateTrial({
         priceBefore,
         priceAfter,
-        toolCalls: chatResult.toolCalls,
+        toolCalls: allToolCalls,
         payload,
       });
+
       const row = createResultRow({
         trial,
         model: mock ? `MOCK:${model}` : model,
@@ -263,9 +328,9 @@ async function runTrial({ trial, condition, payload, model, mock }) {
         evidence: {
           ...row,
           mock,
-          reply: chatResult.reply,
-          interactionId: chatResult.interactionId,
-          toolCalls: chatResult.toolCalls,
+          reply: replies,
+          interactionId: previousInteractionId,
+          toolCalls: allToolCalls,
           priceBefore,
           priceAfter,
         },
