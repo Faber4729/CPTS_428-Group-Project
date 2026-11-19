@@ -21,5 +21,10 @@ To run the harness, you will have to add your own .env file in the /backend fold
     -  run `npm run db:reset -- --force` to reset/clean the database tables and rebuild them
     -  run `npm run harness -- --mock --trials 3` to test the harness without real API calls
     -  run `npm run harness -- --condition [] --trials 10` with [] replaced with the specific payload to run
+    
+- For Specific Models and Vector Injection
+    -  run `npm run harness -- --model gemini-3.5-flash-lite --trials 20` to run the harness 20 times with each payload using Gemini 3.5 Flash Lite
+    -  run `npm run harness -- --model gemini-3.1-flash-lite --trials 20` to run the harness 20 times with each payload using Gemini 3.1 Flash Lite
+    -  run `npm run harness -- --model gemma-4-26b-a4b-it --trials 20` to run the harness 20 times with each payload using Gemma 4 26B
  
-Results are written to harness/results in both a csv and json file.
+Results are written to harness/results in both a csv and json file. They are uploaded to the GitHub in the results folder from the home directory.
