@@ -43,6 +43,7 @@ const TOOLS = [
   },
 
   {
+    type: "function",
     name: "get_shipping_info",
     description: "Get shipping details and supplier notes for a product.",
     parameters: {
