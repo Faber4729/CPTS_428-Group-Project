@@ -20,4 +20,16 @@ function discountProduct(pid, pct){
    }
 }
 
+// Added Read Only for Getting Shipping Information
+function getShippingInfo(pid){
+    const db = openDb();
+   try {
+        db   
+        .prepare("SELECT product_id, supplier_note FROM products WHERE product_id = ?")
+        .get(pid);
+   } finally {
+    db.close();
+   }
+}
+
 export default { discountProduct }

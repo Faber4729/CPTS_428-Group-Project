@@ -26,7 +26,7 @@
     <% if (products.length > 0) { %>
     <div class="roundedbg">
         <table>
-            <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th></th></tr></thead>
+            <thead><tr><th>Title</th><th>Price</th><th>Quantity</th><th>Description</th><th>Supplier Note<th></th></tr></thead>
             <tbody>
                 <% products.forEach(item => { %>
                     <tr>
@@ -34,6 +34,7 @@
                         <td><%= item.price %></td>
                         <td><%= item.quantity %></td>
                         <td><%= item.description %></td>
+                        <td><%= item.supplier_note %></td>
                         <td><a href="/admin/delete/<%= item.product_id%>"><button class="regular">Delete</button></a></td>
                     </tr>
                 <% }) %>

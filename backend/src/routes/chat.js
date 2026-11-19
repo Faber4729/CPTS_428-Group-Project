@@ -41,6 +41,16 @@ const TOOLS = [
       required: ["pid", "percent"],
     },
   },
+
+  {
+    name: "get_shipping_info",
+    description: "Get shipping details and supplier notes for a product.",
+    parameters: {
+      type: "object",
+      properties: { pid: { type: "integer" } },
+      required: ["pid"]
+    }
+  },
 ];
 
 // for right now this is only for the discount tool from adminModel

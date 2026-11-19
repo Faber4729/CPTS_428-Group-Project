@@ -16,7 +16,7 @@ const seed = JSON.parse(
 
 export function seedDb(db) {
     const insertProduct = db.prepare(
-        'INSERT INTO products (product_id, title, description, quantity, price) VALUES (?, ?, ?, ?, ?)'
+        'INSERT INTO products (product_id, title, description, quantity, price, supplier_note) VALUES (?, ?, ?, ?, ?, ?)'
     );
     const insertReview = db.prepare(
         'INSERT INTO reviews (review_id, associated_product_id, review_name, review_body) VALUES (?, ?, ?, ?)'
@@ -24,7 +24,7 @@ export function seedDb(db) {
 
     db.transaction(() => {
         for (const p of seed.products){
-            insertProduct.run(p.product_id, p.title, p.description, p.quantity, p.price);
+            insertProduct.run(p.product_id, p.title, p.description, p.quantity, p.price, p.supplier_note);
         }
         for (const r of seed.reviews){
             insertReview.run(r.review_id, r.associated_product_id, r.review_name, r.review_body);

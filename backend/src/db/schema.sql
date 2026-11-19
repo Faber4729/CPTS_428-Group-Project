@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS products(
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 0,
-    price FLOAT NOT NULL DEFAULT 0.00
+    price FLOAT NOT NULL DEFAULT 0.00,
+    supplier_note TEXT DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS reviews(

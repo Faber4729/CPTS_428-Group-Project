@@ -134,6 +134,7 @@ async function loadPayloads() {
       ) {
         throw new Error("Each payload needs id and numeric target_product_id.");
       }
+
       if (ids.has(payload.id)) {
         throw new Error(`Duplicate payload id: ${payload.id}`);
       }
@@ -146,12 +147,19 @@ async function loadPayloads() {
         }
       }
       
-      if(channel === "message"){
+      else if(channel === "message"){
         if (!Array.isArray(payload.turns) || payload.turns.length === 0 ||
         !payload.turns.every((t) => typeof t === "string")) {
           throw new Error("Message payload needs a non-empty turns array of strings.");
         }
       }
+
+     else if (channel === "tool") {
+      if (typeof p.supplier_note !== "string" ||
+      typeof p.trigger_note !== "string" ) {
+        throw new Error("Tool payload needs supplier_note and trigger_note.");
+      }
+    }
 
       else{
         throw new Error("Unknown channel for payload.");
@@ -160,6 +168,11 @@ async function loadPayloads() {
     return payloads.map((p) => {
       // If No Hidden Instructions, Return As Normal
       if (!p.hidden_instruction) return p;
+
+      // Sets turns to Trigger Message/Message with Tools
+      if (channel === "tool_field") {
+        result.turns = [p.trigger_message];
+      }
 
       // Check for Encoding Method
       const encode = ENCODERS[p.encoding ?? "none"];
@@ -171,6 +184,11 @@ async function loadPayloads() {
       // If It's a Message, Also Return the Turns in Conversation
       if (p.channel === "message") {
         return { ...p, turns: [p.turns[0] + hidden, ...p.turns.slice(1)] };
+      }
+
+      // Add Hidden Notes to Any Tool
+      else if (channel === "tool") {
+        result.supplier_note = p.supplier_note + hidden;
       }
 
       // If Not, Append the Hidden Text (If Any) and Return
@@ -284,8 +302,8 @@ async function runTrial({ trial, condition, payload, model, mock }) {
 
     try {
       // New Variables for Chats with Turns
-      const turns = payload?.channel === "message" ? payload.turns : [BENIGN_MESSAGE];
-
+      const turns = payload && payload.channel !== "review" && payload.turns ? payload.turns : [BENIGN_MESSAGE];
+      
       let previousInteractionId;
       let chatResult;
 
