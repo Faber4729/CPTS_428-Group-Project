@@ -7,6 +7,11 @@
 import { openDb } from "../db/connection.js";
 
 function discountProduct(pid, pct){
+   // D3 mitigation - enforce the cap at the data layer too
+   const percent = Number(pct);
+   if (!Number.isFinite(percent) || percent <= 0 || percent > 10) {
+     throw new Error("Discount must be more than 0 and at most 10%.");
+   }
    const db = openDb();
    try {
         db   
